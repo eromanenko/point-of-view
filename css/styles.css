@@ -156,7 +156,7 @@ body {
 }
 
 .card-text {
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.65;
   color: #2c2c2c;
@@ -368,7 +368,7 @@ body {
   height: 56px;
   border-radius: 50%;
   background: rgba(30, 30, 50, 0.1);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
