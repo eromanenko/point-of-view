@@ -14,7 +14,7 @@ window.Scanner = (function() {
   const cameraCardNumber = document.getElementById('camera-card-number');
 
   function init() {
-    html5QrCode = new Html5Qrcode("camera-video");
+    html5QrCode = new Html5Qrcode("camera-container");
   }
 
   function parseQRUrl(url) {
