@@ -1,0 +1,23 @@
+{
+  "name": "PoV translate",
+  "short_name": "PoV translate",
+  "description": "Translate Point of View board game cards via QR code",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a1a2e",
+  "theme_color": "#e6007e",
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon_round.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

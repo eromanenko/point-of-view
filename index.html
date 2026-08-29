@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#e6007e">
+  <meta name="description" content="PoV translate — scan QR codes from Point of View board game cards to read them in your language">
+  <title>PoV translate</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icon_round.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Language Button (always visible, top-right) -->
+  <div id="lang-bar" class="lang-bar">
+    <button id="lang-btn" class="lang-btn" aria-label="Change language">EN</button>
+    <div id="lang-menu" class="lang-menu hidden">
+      <button class="lang-option" data-lang="EN">EN</button>
+      <button class="lang-option" data-lang="DE">DE</button>
+      <button class="lang-option" data-lang="UK">UK</button>
+      <button class="lang-option" data-lang="RU">RU</button>
+    </div>
+  </div>
+
+  <!-- Close Button (visible when card is shown) -->
+  <button id="close-btn" class="close-btn hidden" aria-label="Close card">✕</button>
+
+  <!-- Card Number (visible when text card is shown) -->
+  <div id="card-number" class="card-number hidden"></div>
+
+  <!-- Placeholder Screen -->
+  <div id="placeholder-screen" class="screen placeholder-screen active">
+    <div class="placeholder-content">
+      <img src="assets/icon_round.png" alt="PoV" class="placeholder-logo">
+      <h1 class="placeholder-title">PoV translate</h1>
+      <div class="placeholder-hint">
+        <div class="scan-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect x="4" y="4" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5" fill="none"/>
+            <rect x="30" y="4" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5" fill="none"/>
+            <rect x="4" y="30" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5" fill="none"/>
+            <rect x="30" y="30" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5" fill="none"/>
+            <circle cx="11" cy="11" r="3" fill="currentColor"/>
+            <circle cx="37" cy="11" r="3" fill="currentColor"/>
+            <circle cx="11" cy="37" r="3" fill="currentColor"/>
+            <rect x="33" y="33" width="8" height="8" rx="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <p id="placeholder-text">Hold your finger on screen to scan QR code</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card View Screen -->
+  <div id="card-screen" class="screen card-screen">
+    <div class="card-bg" id="card-bg"></div>
+    <div class="card-body">
+      <div id="card-title" class="card-title hidden"></div>
+      <div id="card-text" class="card-text"></div>
+      <div id="card-question" class="card-question hidden"></div>
+      <div id="card-stars" class="card-stars hidden"></div>
+    </div>
+  </div>
+
+  <!-- Image View Screen -->
+  <div id="image-screen" class="screen image-screen">
+    <div class="image-container" id="image-container">
+      <img id="image-view" class="image-view" alt="Card image">
+    </div>
+  </div>
+
+  <!-- Camera Overlay -->
+  <div id="camera-overlay" class="camera-overlay hidden">
+    <video id="camera-video" class="camera-video" autoplay playsinline muted></video>
+    <div id="camera-border" class="camera-border"></div>
+    <div id="camera-card-number" class="camera-card-number hidden"></div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="lib/html5-qrcode.min.js"></script>
+  <script src="js/data-loader.js"></script>
+  <script src="js/card-renderer.js"></script>
+  <script src="js/scanner.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then((reg) => {
+          console.log('ServiceWorker registered with scope:', reg.scope);
+        }).catch((err) => {
+          console.log('ServiceWorker registration failed:', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
