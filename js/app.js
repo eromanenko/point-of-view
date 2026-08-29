@@ -16,11 +16,14 @@ window.App = (function() {
   const langBtn = document.getElementById('lang-btn');
   const langMenu = document.getElementById('lang-menu');
   const langOptions = document.querySelectorAll('.lang-option');
-  const closeBtn = document.getElementById('close-btn');
+  const cardNumberBtn = document.getElementById('card-number-btn');
   const placeholderScreen = document.getElementById('placeholder-screen');
   const cardScreen = document.getElementById('card-screen');
   const imageScreen = document.getElementById('image-screen');
   const toastEl = document.getElementById('toast');
+  const scanFab = document.getElementById('scan-fab');
+  const ghostIcon = document.getElementById('ghost-icon');
+  const centerScanIcon = document.getElementById('center-scan-icon');
 
   async function init() {
     // Load Data
@@ -83,19 +86,26 @@ window.App = (function() {
     });
 
     // Close card button
-    closeBtn.addEventListener('click', () => {
+    cardNumberBtn.addEventListener('click', () => {
       closeCard();
     });
 
     // Touch scanning events
-    // Apply to document, but ignore if touching specific UI elements
-    document.addEventListener('touchstart', handleTouchStart, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd);
-    document.addEventListener('touchcancel', handleTouchEnd);
+    // Apply only to placeholder and fab instead of globally
     
-    // For desktop testing
-    document.addEventListener('mousedown', handleTouchStart);
-    document.addEventListener('mouseup', handleTouchEnd);
+    // Placeholder screen interactions
+    placeholderScreen.addEventListener('touchstart', handleTouchStart, { passive: false });
+    placeholderScreen.addEventListener('touchend', handleTouchEnd);
+    placeholderScreen.addEventListener('touchcancel', handleTouchEnd);
+    placeholderScreen.addEventListener('mousedown', handleTouchStart);
+    placeholderScreen.addEventListener('mouseup', handleTouchEnd);
+    
+    // Scan FAB interactions
+    scanFab.addEventListener('touchstart', handleTouchStart, { passive: false });
+    scanFab.addEventListener('touchend', handleTouchEnd);
+    scanFab.addEventListener('touchcancel', handleTouchEnd);
+    scanFab.addEventListener('mousedown', handleTouchStart);
+    scanFab.addEventListener('mouseup', handleTouchEnd);
   }
 
   function setLanguage(lang) {
@@ -168,11 +178,56 @@ window.App = (function() {
   }
 
   function showCard(card) {
+    const fromPlaceholder = placeholderScreen.classList.contains('active');
+    
     state.currentCard = card;
     CardRenderer.renderCard(card, state.language);
     
     placeholderScreen.classList.remove('active');
-    closeBtn.classList.remove('hidden');
+    cardNumberBtn.classList.remove('hidden');
+
+    if (fromPlaceholder) {
+      playScanIconAnimation();
+    } else {
+      scanFab.classList.remove('hidden');
+    }
+  }
+
+  function playScanIconAnimation() {
+    const centerRect = centerScanIcon.getBoundingClientRect();
+    
+    // Temporarily show fab to get its coordinates, but keep it invisible
+    scanFab.style.opacity = '0';
+    scanFab.classList.remove('hidden');
+    const fabRect = scanFab.getBoundingClientRect();
+    
+    // Center the ghost icon perfectly over the center icon
+    ghostIcon.classList.remove('hidden');
+    ghostIcon.style.left = centerRect.left + 'px';
+    ghostIcon.style.top = centerRect.top + 'px';
+    
+    // Calculate the translation to move ghost exactly over fab center
+    const deltaX = fabRect.left - centerRect.left + (fabRect.width - centerRect.width) / 2;
+    const deltaY = fabRect.top - centerRect.top + (fabRect.height - centerRect.height) / 2;
+    
+    // The FAB icon is 28x28, the center icon is 48x48. Scale factor = 28/48
+    const scaleFactor = 28 / 48;
+
+    const animation = ghostIcon.animate([
+      { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+      { 
+        transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleFactor})`,
+        opacity: 0.3
+      }
+    ], {
+      duration: 600,
+      easing: 'cubic-bezier(0.2, 0, 0.2, 1)'
+    });
+    
+    animation.onfinish = () => {
+      ghostIcon.classList.add('hidden');
+      scanFab.style.opacity = '';
+    };
   }
 
   function closeCard() {
@@ -180,8 +235,8 @@ window.App = (function() {
     cardScreen.classList.remove('active');
     imageScreen.classList.remove('active');
     placeholderScreen.classList.add('active');
-    closeBtn.classList.add('hidden');
-    document.getElementById('card-number').classList.add('hidden');
+    cardNumberBtn.classList.add('hidden');
+    scanFab.classList.add('hidden');
   }
 
   function showToast(msg) {

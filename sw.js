@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pov-translate-v0.1.3';
+const CACHE_NAME = 'pov-translate-v0.1.5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

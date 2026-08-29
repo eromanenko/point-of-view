@@ -12,7 +12,7 @@ window.CardRenderer = (function() {
   const cardQuestion = document.getElementById('card-question');
   const cardStars = document.getElementById('card-stars');
   const imageView = document.getElementById('image-view');
-  const cardNumberBadge = document.getElementById('card-number');
+  const cardNumberText = document.getElementById('card-number-text');
 
   function renderCard(card, lang) {
     if (card.type === 'image') {
@@ -34,9 +34,8 @@ window.CardRenderer = (function() {
       cardBg.style.backgroundImage = 'none';
     }
 
-    // Set card number badge
-    cardNumberBadge.textContent = card.card;
-    cardNumberBadge.classList.remove('hidden');
+    // Set card number text
+    cardNumberText.textContent = card.card;
 
     const textContent = card.text[lang] || '';
     
@@ -107,8 +106,8 @@ window.CardRenderer = (function() {
     cardScreen.classList.remove('active');
     imageScreen.classList.add('active');
     
-    // Hide card number for images
-    cardNumberBadge.classList.add('hidden');
+    // Set card number text
+    cardNumberText.textContent = card.card;
 
     // Load image
     // e.g. LP-A-10-EN.jpg
