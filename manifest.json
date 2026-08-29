@@ -2,7 +2,7 @@
   "name": "PoV translate",
   "short_name": "PoV translate",
   "description": "Translate Point of View board game cards via QR code",
-  "start_url": "index.html",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#1a1a2e",

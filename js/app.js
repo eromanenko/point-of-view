@@ -38,6 +38,23 @@ window.App = (function() {
 
     // Event Listeners
     setupEvents();
+
+    // Check URL for card param (for desktop testing)
+    const urlParams = new URLSearchParams(window.location.search);
+    const cardParam = urlParams.get('card');
+    if (cardParam) {
+      const parts = cardParam.split('-');
+      if (parts.length >= 3) {
+        const gameCode = parts[0];
+        const storyLetter = parts[1];
+        const cardNum = parts[2];
+        const cardKey = `${storyLetter}-${cardNum}`;
+        const card = DataLoader.getCard(gameCode, cardKey);
+        if (card) {
+           showCard(card);
+        }
+      }
+    }
   }
 
   function setupEvents() {
