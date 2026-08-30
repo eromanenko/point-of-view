@@ -20,7 +20,8 @@
 </head>
 
 <body>
-  <!-- Language Button (always visible, top-right) -->
+  <div id="app-container" class="app-container">
+    <!-- Language Button (always visible, top-right) -->
   <div id="lang-bar" class="lang-bar">
     <button id="lang-btn" class="lang-btn" aria-label="Change language">EN</button>
     <div id="lang-menu" class="lang-menu hidden">
@@ -49,7 +50,7 @@
         <p id="placeholder-text">Hold your finger on screen to scan QR code</p>
       </div>
     </div>
-    <div class="app-version">v1.0.0</div>
+    <div class="app-version">v1.0.3</div>
   </div>
 
   <!-- Card View Screen -->
@@ -87,6 +88,7 @@
 
   <!-- Toast -->
   <div id="toast" class="toast hidden"></div>
+  </div>
 
   <script src="lib/html5-qrcode.min.js"></script>
   <script src="js/data-loader.js"></script>

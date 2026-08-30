@@ -27,6 +27,19 @@ window.CardRenderer = (function() {
     imageScreen.classList.remove('active');
     cardScreen.classList.add('active');
     
+    // Set theme
+    cardScreen.classList.remove('theme-question', 'theme-text', 'game-lp', 'game-sf');
+    if (card.type === 'question') {
+      cardScreen.classList.add('theme-question');
+    } else {
+      cardScreen.classList.add('theme-text');
+    }
+    
+    // Add game specific class
+    if (card.gameCode) {
+      cardScreen.classList.add(`game-${card.gameCode.toLowerCase()}`);
+    }
+    
     // Set background image
     if (card.gameBg) {
       cardBg.style.backgroundImage = `url(${card.gameBg})`;
