@@ -22,74 +22,107 @@
 <body>
   <div id="app-container" class="app-container">
     <!-- Language Button (always visible, top-right) -->
-  <div id="lang-bar" class="lang-bar">
-    <button id="lang-btn" class="lang-btn" aria-label="Change language">EN</button>
-    <div id="lang-menu" class="lang-menu hidden">
-      <button class="lang-option" data-lang="EN">EN</button>
-      <button class="lang-option" data-lang="DE">DE</button>
-      <button class="lang-option" data-lang="UK">UK</button>
-      <button class="lang-option" data-lang="RU">RU</button>
-    </div>
-  </div>
-
-  <!-- Card Number & Close Button (always visible when any card is shown) -->
-  <button id="card-number-btn" class="card-number-btn hidden" aria-label="Close card">
-    <span id="card-number-text"></span>
-    <span class="close-icon">✕</span>
-  </button>
-
-  <!-- Placeholder Screen -->
-  <div id="placeholder-screen" class="screen placeholder-screen active">
-    <div class="placeholder-content">
-      <img src="assets/icon_round.png" alt="PoV" class="placeholder-logo">
-      <h1 class="placeholder-title">PoV translate</h1>
-      <div class="placeholder-hint">
-        <div class="scan-icon" id="center-scan-icon">
-          <img src="assets/finger-print.svg" alt="Scan" class="fingerprint-icon">
-        </div>
-        <p id="placeholder-text">Hold your finger on screen to scan QR code</p>
+    <div id="lang-bar" class="lang-bar">
+      <button id="lang-btn" class="lang-btn" aria-label="Change language">EN</button>
+      <div id="lang-menu" class="lang-menu hidden">
+        <button class="lang-option" data-lang="EN">EN</button>
+        <button class="lang-option" data-lang="DE">DE</button>
+        <button class="lang-option" data-lang="UK">UK</button>
+        <button class="lang-option" data-lang="RU">RU</button>
       </div>
     </div>
-    <div class="app-version">v1.0.4</div>
-  </div>
 
-  <!-- Card View Screen -->
-  <div id="card-screen" class="screen card-screen">
-    <div class="card-bg" id="card-bg"></div>
-    <div class="card-body">
-      <div id="card-title" class="card-title hidden"></div>
-      <div id="card-text" class="card-text"></div>
-      <div id="card-question" class="card-question hidden"></div>
-      <div id="card-stars" class="card-stars hidden"></div>
+    <!-- Action Bar Left -->
+    <div id="action-bar-left" class="action-bar-left">
+      <button id="rules-btn" class="icon-btn" aria-label="Rules">
+        <img src="assets/help.svg" alt="Rules">
+      </button>
+      <button id="share-btn" class="icon-btn" aria-label="Share">
+        <img src="assets/share.svg" alt="Share">
+      </button>
     </div>
-  </div>
 
-  <!-- Image View Screen -->
-  <div id="image-screen" class="screen image-screen">
-    <div class="image-container" id="image-container">
-      <img id="image-view" class="image-view" alt="Card image">
+    <!-- Card Number & Close Button (always visible when any card is shown) -->
+    <button id="card-number-btn" class="card-number-btn hidden" aria-label="Close card">
+      <span id="card-number-text"></span>
+      <span class="close-icon">✕</span>
+    </button>
+
+    <!-- Placeholder Screen -->
+    <div id="placeholder-screen" class="screen placeholder-screen active">
+      <div class="placeholder-content">
+        <img src="assets/icon_round.png" alt="PoV" class="placeholder-logo">
+        <h1 class="placeholder-title">PoV translate</h1>
+        <div class="placeholder-hint">
+          <div class="scan-icon" id="center-scan-icon">
+            <img src="assets/finger-print.svg" alt="Scan" class="fingerprint-icon">
+          </div>
+          <p id="placeholder-text">Hold your finger on screen to scan QR code</p>
+        </div>
+      </div>
+      <div class="app-version">v1.1.0</div>
     </div>
+
+    <!-- Card View Screen -->
+    <div id="card-screen" class="screen card-screen">
+      <div class="card-bg" id="card-bg"></div>
+      <div class="card-body">
+        <div id="card-title" class="card-title hidden"></div>
+        <div id="card-text" class="card-text"></div>
+        <div id="card-question" class="card-question hidden"></div>
+        <div id="card-stars" class="card-stars hidden"></div>
+      </div>
+    </div>
+
+    <!-- Image View Screen -->
+    <div id="image-screen" class="screen image-screen">
+      <div class="image-container" id="image-container">
+        <img id="image-view" class="image-view" alt="Card image">
+      </div>
+    </div>
+
+    <!-- Camera Overlay -->
+    <div id="camera-overlay" class="camera-overlay hidden">
+      <div id="camera-container" class="camera-container"></div>
+      <div id="camera-border" class="camera-border"></div>
+      <div id="camera-card-number" class="camera-card-number hidden"></div>
+    </div>
+
+    <!-- Scan FAB (Floating Action Button) for cards -->
+    <button id="scan-fab" class="scan-fab hidden" aria-label="Scan new card">
+      <img src="assets/finger-print.svg" alt="Scan" class="fingerprint-icon">
+    </button>
+
+    <!-- Ghost Icon for Animation -->
+    <img src="assets/finger-print.svg" id="ghost-icon" class="ghost-icon hidden" alt="Scan">
+
+    <!-- Rules Screen -->
+    <div id="rules-screen" class="screen info-screen">
+      <div class="info-content-container">
+        <h2 id="rules-title" class="info-title">Rules</h2>
+        <div id="rules-text" class="info-text"></div>
+      </div>
+      <div class="info-actions">
+        <button id="rules-close-btn" class="btn-primary">Okay</button>
+      </div>
+    </div>
+
+    <!-- Share Screen -->
+    <div id="share-screen" class="screen info-screen">
+      <div class="info-content-container center-content">
+        <h2 id="share-title" class="info-title">Share App</h2>
+        <div id="qrcode-container" class="qrcode-container"></div>
+      </div>
+      <div class="info-actions">
+        <button id="share-close-btn" class="btn-primary">Okay</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden"></div>
   </div>
 
-  <!-- Camera Overlay -->
-  <div id="camera-overlay" class="camera-overlay hidden">
-    <div id="camera-container" class="camera-container"></div>
-    <div id="camera-border" class="camera-border"></div>
-    <div id="camera-card-number" class="camera-card-number hidden"></div>
-  </div>
-
-  <!-- Scan FAB (Floating Action Button) for cards -->
-  <button id="scan-fab" class="scan-fab hidden" aria-label="Scan new card">
-    <img src="assets/finger-print.svg" alt="Scan" class="fingerprint-icon">
-  </button>
-
-  <!-- Ghost Icon for Animation -->
-  <img src="assets/finger-print.svg" id="ghost-icon" class="ghost-icon hidden" alt="Scan">
-
-  <!-- Toast -->
-  <div id="toast" class="toast hidden"></div>
-  </div>
-
+  <script src="lib/qrcode.min.js"></script>
   <script src="lib/html5-qrcode.min.js"></script>
   <script src="js/data-loader.js"></script>
   <script src="js/card-renderer.js"></script>

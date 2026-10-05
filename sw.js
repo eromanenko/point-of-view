@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pov-translate-v1.0.4';
+const CACHE_NAME = 'pov-translate-v1.1.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -8,12 +8,16 @@ const ASSETS_TO_CACHE = [
   './js/card-renderer.js',
   './js/data-loader.js',
   './lib/html5-qrcode.min.js',
+  './lib/qrcode.min.js',
   './data/cards.json',
   './assets/icon.png',
   './assets/icon_round.png',
   './assets/lp_bg.jpg',
   './assets/sf_bg.jpg',
   './assets/ci_bg.jpg',
+  './assets/help.svg',
+  './assets/share.svg',
+  './assets/finger-print.svg',
   './manifest.json'
 ];
 

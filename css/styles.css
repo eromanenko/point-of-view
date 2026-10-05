@@ -642,3 +642,119 @@ body {
   background: rgba(44, 44, 44, 0.3);
   border-radius: 2px;
 }
+/* --- Left Action Bar --- */
+.action-bar-left {
+  position: absolute;
+  top: env(safe-area-inset-top, 12px);
+  left: 12px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.icon-btn {
+  background: rgba(30, 30, 50, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.icon-btn:active {
+  background: rgba(30, 30, 50, 0.9);
+  transform: scale(0.95);
+}
+
+.icon-btn img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.9;
+}
+
+.action-bar-left.hidden {
+  display: none !important;
+}
+
+/* --- Info Screens (Rules, Share) --- */
+.info-screen {
+  background: #1a1a2e;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px);
+  display: none;
+  flex-direction: column;
+}
+
+.info-screen.active {
+  display: flex;
+}
+
+.info-content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-content-container.center-content {
+  justify-content: center;
+  align-items: center;
+}
+
+.info-title {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.info-text {
+  color: #dddddd;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  padding-bottom: 20px;
+}
+
+.info-text b {
+  color: var(--color-gold);
+}
+
+.qrcode-container {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 20px auto;
+}
+
+.info-actions {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--color-teal);
+  color: #ffffff;
+  border: none;
+  padding: 12px 32px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  transition: transform 0.1s, background 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+  background: #258c85;
+}

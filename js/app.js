@@ -25,6 +25,19 @@ window.App = (function() {
   const ghostIcon = document.getElementById('ghost-icon');
   const centerScanIcon = document.getElementById('center-scan-icon');
 
+  const actionBarLeft = document.getElementById('action-bar-left');
+  const rulesBtn = document.getElementById('rules-btn');
+  const shareBtn = document.getElementById('share-btn');
+  const rulesScreen = document.getElementById('rules-screen');
+  const shareScreen = document.getElementById('share-screen');
+  const rulesCloseBtn = document.getElementById('rules-close-btn');
+  const shareCloseBtn = document.getElementById('share-close-btn');
+  const rulesTitle = document.getElementById('rules-title');
+  const rulesText = document.getElementById('rules-text');
+  const shareTitle = document.getElementById('share-title');
+
+  let qrCodeGenerated = false;
+
   async function init() {
     // Load Data
     const success = await DataLoader.loadData();
@@ -106,6 +119,19 @@ window.App = (function() {
     scanFab.addEventListener('touchcancel', handleTouchEnd);
     scanFab.addEventListener('mousedown', handleTouchStart);
     scanFab.addEventListener('mouseup', handleTouchEnd);
+
+    // Rules
+    rulesBtn.addEventListener('click', () => {
+      openInfoScreen(rulesScreen);
+    });
+    rulesCloseBtn.addEventListener('click', () => closeInfoScreen(rulesScreen));
+
+    // Share
+    shareBtn.addEventListener('click', () => {
+      openInfoScreen(shareScreen);
+      generateQRCode();
+    });
+    shareCloseBtn.addEventListener('click', () => closeInfoScreen(shareScreen));
   }
 
   function setLanguage(lang) {
@@ -134,11 +160,18 @@ window.App = (function() {
     if (hintText) {
       document.getElementById('placeholder-text').textContent = hintText;
     }
+
+    // Update Info Screens
+    if (rulesTitle) rulesTitle.textContent = DataLoader.getDictWord('rules_title', state.language) || 'Rules';
+    if (rulesText) rulesText.innerHTML = DataLoader.getDictWord('rules', state.language) || '';
+    if (rulesCloseBtn) rulesCloseBtn.textContent = DataLoader.getDictWord('btn_okay', state.language) || 'Okay';
+    if (shareTitle) shareTitle.textContent = DataLoader.getDictWord('share_title', state.language) || 'Share App';
+    if (shareCloseBtn) shareCloseBtn.textContent = DataLoader.getDictWord('btn_okay', state.language) || 'Okay';
   }
 
   function handleTouchStart(e) {
     // Ignore if clicking on language bar, close button, or toast
-    if (e.target.closest('#lang-bar') || e.target.closest('#close-btn') || e.target.closest('#toast')) {
+    if (e.target.closest('#lang-bar') || e.target.closest('#close-btn') || e.target.closest('#toast') || e.target.closest('#action-bar-left')) {
       return;
     }
     
@@ -185,6 +218,7 @@ window.App = (function() {
     
     placeholderScreen.classList.remove('active');
     cardNumberBtn.classList.remove('hidden');
+    actionBarLeft.classList.add('hidden');
 
     if (fromPlaceholder) {
       playScanIconAnimation();
@@ -237,6 +271,38 @@ window.App = (function() {
     placeholderScreen.classList.add('active');
     cardNumberBtn.classList.add('hidden');
     scanFab.classList.add('hidden');
+    actionBarLeft.classList.remove('hidden');
+  }
+
+  function openInfoScreen(screen) {
+    screen.classList.add('active');
+    placeholderScreen.classList.remove('active');
+    actionBarLeft.classList.add('hidden');
+    langBtn.classList.add('hidden');
+  }
+
+  function closeInfoScreen(screen) {
+    screen.classList.remove('active');
+    placeholderScreen.classList.add('active');
+    actionBarLeft.classList.remove('hidden');
+    langBtn.classList.remove('hidden');
+  }
+
+  function generateQRCode() {
+    if (qrCodeGenerated) return;
+    const qrcodeContainer = document.getElementById('qrcode-container');
+    if (!qrcodeContainer) return;
+    
+    const url = window.location.href.split('?')[0];
+    new QRCode(qrcodeContainer, {
+      text: url,
+      width: 200,
+      height: 200,
+      colorDark : "#1a1a2e",
+      colorLight : "#ffffff",
+      correctLevel : QRCode.CorrectLevel.H
+    });
+    qrCodeGenerated = true;
   }
 
   function showToast(msg) {
